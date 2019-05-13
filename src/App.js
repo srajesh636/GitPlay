@@ -1,25 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import LandingPage from "./components/LandingPage";
+import Navbar from "./components/Navbar";
+import Github from "./pages/Github";
+import UserProfile from './pages/UserProfile';
+import RepoDetails from './pages/RepoDetails';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Navbar />
+      <Switch>
+        <Route path="/github" component={Github} />
+        <Route path="/user/:userId" component={UserProfile} />
+        <Route path="/repo/:repoId" component={RepoDetails} />
+        <Route path="/" component={LandingPage} />
+      </Switch>
+    </BrowserRouter>
   );
 }
 

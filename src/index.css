@@ -5,9 +5,44 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: "Poppins", sans-serif;
+  background-color: #f5f7fa !important;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+button {
+  outline: none !important;
+  border: none;
+}
+
+.bg-blue {
+  background-color: #022045;
+}
+
+.text-blue {
+  color: #022045;
+}
+
+.hero-banner {
+  background-image: url("https://images.pexels.com/photos/159299/graphic-design-studio-tracfone-programming-html-159299.jpeg");
+  height: 92vh;
+  background-size: cover;
+}
+
+a {
+  color: white !important;
+  text-decoration: none;
+  background-color: transparent;
+  text-decoration-line: none !important;
+}
+
+.search-container {
+  height: 60vh;
+  background-image: url("https://images.unsplash.com/photo-1519397154350-533cea5b8bff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60");
+  background-size: cover;
+}
+
+.circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
 }
