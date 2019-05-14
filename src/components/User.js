@@ -5,7 +5,10 @@ import { connect } from "react-redux";
 class User extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      editUserName: false,
+      newUserName:''
+    };
   }
 
   deleteUser = () => {
@@ -14,8 +17,41 @@ class User extends React.Component {
       payload: this.props.data
     });
   };
+
+  onChangeHandler = (e) =>{
+    this.setState({
+      newUserName:e.target.value
+    })
+  }
+
+  updateUserName = () =>{
+    this.setState({
+      editUserName:false
+    })
+    let users = this.props.store.usersList.items;
+    let currentIndex = users.indexOf(this.props.data);
+
+    users[currentIndex] = {...this.props.data,userName:this.state.newUserName}
+
+    this.props.dispatch({
+      type:'UPDATE_USERNAME',
+      payload:users
+    })
+
+  }
+
+  onClickHandler = () =>{
+    debugger;
+    this.props.dispatch({
+      type: "CURRENT_USER",
+      payload: this.props.data
+    });
+  }
+
   render() {
     let data = this.props.data;
+    let currentUser =this.props.store.currentUser
+
     return (
       <>
         <div className="row mt-2 py-4">
@@ -29,10 +65,30 @@ class User extends React.Component {
             />
           </div>
           <div className="col-9">
-            <h3 className="font-weight-bold">{data.login}</h3>
-            <Link to={`/user/${data.login}`}>
-              <p className="text-primary">View</p>
-            </Link>
+            {this.state.editUserName ? (
+              <div className="d-flex align-items-center h-100">
+              <input className="border-none input-username" onChange={this.onChangeHandler}/>
+              <button className="ml-3 btn btn-primary" onClick={this.updateUserName}>Submit</button>
+              </div>
+            ) : (
+              <div>
+                <h3 className="font-weight-bold">{data.userName ? data.userName : data.login}</h3>
+                <div className="d-flex">
+                  <Link to={`/user/${data.login}`}>
+                    <p className="text-primary" onClick={this.onClickHandler}>View</p>
+                  </Link>
+                  <p
+                    className="text-primary ml-2"
+                    onClick={() => {
+                      this.setState({ editUserName: true });
+                    }}
+                  >
+                    {" "}
+                    | &nbsp; Edit Username
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
           <div className="col-1">
             <p
@@ -40,7 +96,7 @@ class User extends React.Component {
               onClick={this.deleteUser}
             >
               <small className="text-danger">
-                <i class="fas fa-trash-alt h5 font-weight-light" />
+                <i className="fas fa-trash-alt h5 font-weight-light" />
               </small>
             </p>
           </div>
@@ -51,5 +107,9 @@ class User extends React.Component {
     );
   }
 }
-
-export default connect()(User);
+const mapStateToProps = state =>{
+  return{
+    store:state
+  }
+}
+export default connect(mapStateToProps)(User);

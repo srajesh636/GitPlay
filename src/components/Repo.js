@@ -29,7 +29,7 @@ class Repo extends Component {
           className="text-secondary mt-3 text-right"
           onClick={this.onClickHandler}
         >
-          <small>View</small>
+          <small className="text-primary" style={{cursor:'default'}}>View</small>
         </p>
       </div>
     );

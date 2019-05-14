@@ -29,13 +29,14 @@ class RepositoryList extends React.Component {
 
   render() {
     let repos = this.state.repos;
+
     return (
       <div>
         <div className="mt-4">
           {repos &&
             repos.map((i, index) => {
               return (
-                <div className="row mt-2 mb-2">
+                <div className="row mt-2 mb-2" key={index}>
                   {repos[index] && (
                     <div className="col-lg-6 col-md-6 col-sm-12 w-100 rounded">
                       <Repo data={repos[index]} />
@@ -60,4 +61,5 @@ const mapStateToProps = state => {
     store: state
   };
 };
+
 export default connect(mapStateToProps)(RepositoryList);

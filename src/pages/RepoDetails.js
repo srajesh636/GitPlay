@@ -10,8 +10,8 @@ class RepoDetails extends React.Component {
 
   render() {
     let repo = this.props.store.currentRepo;
-    console.log(this.props.store);
-    console.log(repo);
+    let currentUser =this.props.store.currentUser
+
     return (
       <div className="container p-5">
         <div className="row">
@@ -22,7 +22,7 @@ class RepoDetails extends React.Component {
               alt="profile"
             />
             <h3 className="mt-4 font-weight-bold  pb-3 border-bottom">
-              {repo.owner.login}
+              {currentUser.userName || repo.owner.login}
             </h3>
           </div>
           <div className="col-9 px-5">
@@ -52,9 +52,11 @@ class RepoDetails extends React.Component {
     );
   }
 }
+
 const mapStateToProps = state => {
   return {
     store: state
   };
 };
+
 export default connect(mapStateToProps)(RepoDetails);

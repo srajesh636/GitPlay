@@ -13,17 +13,16 @@ class UserProfile extends Component {
 
   componentDidMount() {
     let userName = window.location.href.split("/")[4];
+
     if (userName) {
-      this.props.dispatch({
-        type: "CURRENT_USER",
-        payload: userName
-      });
-      this.getUserData(userName);
+       this.getUserData(userName);
     }
   }
 
   getUserData = async userName => {
+
     let userData = await getUserDetails(userName);
+
     this.setState({
       userData: await userData
     });
@@ -31,6 +30,8 @@ class UserProfile extends Component {
 
   render() {
     let userData = this.state.userData;
+    let currentUser =this.props.store.currentUser
+
     return (
       <div className="container p-5">
         <div className="row">
@@ -41,7 +42,7 @@ class UserProfile extends Component {
               alt="profile"
             />
             <h3 className="mt-4 font-weight-bold  pb-3 border-bottom">
-              {userData.login}
+              {currentUser.userName || userData.login}
             </h3>
           </div>
           <div className="col-lg-9 col-md-9 col-sm-12 px-5">
@@ -68,4 +69,10 @@ class UserProfile extends Component {
   }
 }
 
-export default connect()(UserProfile);
+const mapStateToProps = state => {
+  return {
+    store: state
+  };
+};
+
+export default connect(mapStateToProps)(UserProfile);

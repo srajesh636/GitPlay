@@ -4,7 +4,6 @@ import UsersList from "../components/UsersList";
 
 
 class Github extends Component {
-  state = {};
   render() {
     return (
       <>
